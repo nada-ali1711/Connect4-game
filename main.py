@@ -90,10 +90,22 @@ screen = pygame.display.set_mode(size)
 draw_board(board)
 pygame.display.update()
 
+font = pygame.font.SysFont("monospace", 75)
+
 while not game_over:
     for event in pygame.event.get():
+        pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
         if event.type == pygame.QUIT:
             sys.exit()
+
+        if event.type == pygame.MOUSEMOTION:
+            pygame.draw.rect(screen, BLACK, (0,0,width,SQUARESIZE))
+            posx = event.pos[0]
+            if turn==0:
+                pygame.draw.circle(screen, RED, (posx, int(SQUARESIZE / 2)), RADIUS)
+            else:
+                pygame.draw.circle(screen, YELLOW, (posx, int(SQUARESIZE / 2)), RADIUS)
+        pygame.display.update()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
 
@@ -113,7 +125,8 @@ while not game_over:
                     # check if player 1 wins
 
                     if winning_game(board,1):
-                        print("PLAYER 1 WINS !")
+                        label = font.render("Player1 wins!",1, RED)
+                        screen.blit(label,(40,10))
                         game_over=True
 
 
@@ -128,12 +141,15 @@ while not game_over:
 
                     #check if player 2 wins
 
-                    if winning_game(board,1):
-                        print("PLAYER 2 WINS !")
-                        game_over=True
+                    if winning_game(board,2):
+                        label = font.render("Player2 wins!", 2, YELLOW)
+                        screen.blit(label, (40, 10))
+                        game_over = True
 #board=creat_board()
             draw_board(board)
             print_board(board)
 
             turn += 1
             turn = turn % 2
+            if game_over:
+                pygame.time.wait(3000)
