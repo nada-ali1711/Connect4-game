@@ -90,9 +90,9 @@ class Button:
 			else:
 				self.dynamic_elecation = self.elevation
 				if self.pressed == True:
-					#print('click')
+					print('click')
 					#draw_menu()
-					button3.draw()
+					#button3.draw()
 					self.pressed = False
 		else:
 			self.dynamic_elecation = self.elevation
@@ -127,6 +127,7 @@ def draw_text(text,font, color,x,y):
     screen.blit(show,(x,y))
 
 def draw_menu():
+	screen.fill((52, 78, 91))
 	draw_text("Connect4 Game", font, fontColor, 80, 100)
 	#button1 = Button('PLAY WITHOUT PRUNING', 260, 130, (220, 480), 10)
 	#button2 = Button('PLAY WITH PRUNING', 260, 130, (220, 280), 10)
@@ -140,18 +141,27 @@ def draw_menu():
 
 pygame.display.update()
 def draw_game():
+	screen.fill((100, 100, 255))
 	button3.draw()
 	draw_text("lets play", font, fontColor, 80, 100)
 pygame.display.update()
 
+def draw_game2():
+	screen.fill((100, 100, 100))
+	button4.draw()
+	draw_text("hi", font, fontColor, 80, 100)
+pygame.display.update()
+
+
 button1 = Button('PLAY WITHOUT PRUNING',260,130,(220,480),5)
 button2 = Button('PLAY WITH PRUNING',260,130,(220,280),5)
 button3 = Button('HEY!',260,130,(220,280),5)
+button4 = Button('hi!',260,130,(220,280),5)
 
 main_menu=True
 run= True
 while run:
-	screen.fill((52, 78, 91))
+	#screen.fill((52, 78, 91))
 	#draw_text("Connect4 Game", font, fontColor, 80, 100)
 	for event in pygame.event.get():
 		#draw_text("Connect4 Game", font, fontColor, 160, 160)
@@ -160,7 +170,14 @@ while run:
 			pygame.display.update()
 			if button1.pressed == True:
 				draw_game()
+				main_menu=False
 				pygame.display.update()
+			elif button2.pressed == True:
+				draw_game2()
+				main_menu = False
+				pygame.display.update()
+
+
 		#pygame.display.update()
 		if event.type == pygame.QUIT:
 			#pygame.quit()
